@@ -20,11 +20,15 @@ def insert():
 
 
 def delete():
-    task = input("Insert the task you want to delete: ")
-    if task not in todo_list:
-        print("The task typed was not in the list.")
-    else:
-        todo_list.remove(task)
+    task = input("Insert the task you want to delete, or even only a art of it: ")
+    found = False
+    for task_tocheck in todo_list:
+        if task in task_tocheck:
+            found = True
+            todo_list.remove(task_tocheck)
+    if not found:
+        print("No task with that substring was found.")
+
 
 
 def show():
@@ -37,7 +41,7 @@ def show():
 def save(filename):
     txt = open(filename, 'w')
     for task in todo_list:
-        txt.write(task + '\n')
+        txt.write(task)
     txt.close()
 
 if __name__ == '__main__':
