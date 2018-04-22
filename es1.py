@@ -8,8 +8,16 @@ while action != actions[3]:
         todo_list.append(task)
     elif action == actions[1]:
         task = input("Insert your action to be deleted: ")
-        todo_list.remove(task)
+        if task not in todo_list:
+            print("The task typed is not inside the list")
+        else:
+            todo_list.remove(task)
     elif action == actions[2]:
-        print(todo_list.sort())
+        todos = sorted(todo_list)
+        print()
+        for task in todos:
+            print(task)
+        print()
+        #print(todo_list.sort())
     else: print("The command inserted is not correct")
     action = input("Please insert your next command: ")
