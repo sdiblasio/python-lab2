@@ -22,12 +22,18 @@ def insert():
 def delete():
     task = input("Insert the task you want to delete, or even only a art of it: ")
     found = False
+    todo_tmp = list()
     for task_tocheck in todo_list:
         if task in task_tocheck:
             found = True
-            todo_list.remove(task_tocheck)
+        else:
+            todo_tmp.append(task_tocheck)
     if not found:
         print("No task with that substring was found.")
+    else:
+        todo_list.clear()
+        todo_list.extend(todo_tmp)
+    todo_tmp.clear()
 
 
 
