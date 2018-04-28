@@ -1,9 +1,8 @@
 from sys import argv
 
-todo_list = list()
-
 
 def startup(filename):
+    todo_list = list()
     txt = open(filename)
     text = txt.read()
     lines = text.split('\n')
@@ -12,14 +11,16 @@ def startup(filename):
             todo_list.append(line)
     txt.close()
     #print(todo_list)
+    return todo_list
 
 
-def insert():
+def insert(todo_list):
     task = input("Insert the task to be added: ")
     todo_list.append(task)
+    return todo_list
 
 
-def delete():
+def delete(todo_list):
     task = input("Insert the task you want to delete, or even only a art of it: ")
     found = False
     todo_tmp = list()
@@ -30,28 +31,29 @@ def delete():
             todo_tmp.append(task_tocheck)
     if not found:
         print("No task with that substring was found.")
+        todo_tmp.clear()
+        return todo_list
     else:
         todo_list.clear()
-        todo_list.extend(todo_tmp)
-    todo_tmp.clear()
+        return todo_tmp
 
 
 
-def show():
+def show(todo_list):
     print()
     for task in sorted(todo_list):
         print(task)
     print()
 
 
-def save(filename):
+def save(todo_list, filename="task.txt"):
     txt = open(filename, 'w')
     for task in todo_list:
         txt.write(task)
     txt.close()
 
 if __name__ == '__main__':
-    startup(argv[1])
+    todo_l = startup(argv[1])
     open_ex = True
     print("Insert the number corresponding to the action you want to perform>")
     print("1. insert a new task;")
@@ -61,13 +63,13 @@ if __name__ == '__main__':
     while open_ex:
         action = int(input("Your choice: "))
         if action == 1:
-            insert()
+            todo_l = insert(todo_l)
         elif action == 2:
-            delete()
+            todo_l = delete(todo_l)
         elif action == 3:
-            show()
+            show(todo_l)
         elif action == 4:
-            save(argv[1])
+            save(todo_l, argv[1])
             open_ex = False
         else:
             print("The action required is not in the range 1-4.")
